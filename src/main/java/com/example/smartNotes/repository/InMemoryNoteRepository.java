@@ -38,4 +38,13 @@ public class InMemoryNoteRepository implements NoteRepository {
         return note;
     }
 
+    @Override
+    public void deleteById(Long id) {
+        storage.remove(id);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return storage.containsKey(id);
+    }
 }

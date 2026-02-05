@@ -11,4 +11,6 @@ public interface NoteRepository {
     List<Note> findAll();
     Optional<Note> findById(Long id);
     Note save(Note note);
+    void deleteById(Long id);
+    boolean existsById(Long id);
 }
