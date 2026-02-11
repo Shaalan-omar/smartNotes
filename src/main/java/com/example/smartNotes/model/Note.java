@@ -2,18 +2,34 @@ package com.example.smartNotes.model;
 //This class defines the data shape simply.
 //I did not use JPA or Hibernate here yet cause I did not cover them yet. So here it is not yet an entity.
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 
+import java.util.Optional;
+
+import static jakarta.persistence.FetchType.LAZY;
+
+@Entity
+@Table(name = "notes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Note {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title, content;
+    @Column(nullable = false)
+    private String title;
+    @Column(nullable = false, length = 5000)
+    private String content;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 //    public Note(Long id, String title, String content){ //Edeeni fel dependency injection
 //        this.id = id;
